@@ -1,0 +1,96 @@
+
+<div class="modal-header">
+    <h3 class="modal-title text-center">Requisicion</h3>
+</div>
+
+<div class="modal-body content">
+
+<div class="row">
+    <!-- Detalle -->
+    <div class="col-sm-5">
+        <div class="box" style="height:400px" ng-init="iniciar();">
+            <div class="box-body">
+				<!-- Requisicion -->
+                    <form name="form" role="form" ng-show="!view">
+                        <div class="form-group">
+                            <label class="control-label"> Fecha:</label>
+                                <input type="text" datetime class="form-control" ng-model="f" placeholder="Fecha" required/>
+                        </div>
+                        <div class="form-group" ng-show="sucursales">
+                            <label class="control-label"> Sucursal:</label>
+                                <ui-select required ng-model="sucursal" theme="bootstrap"
+                                	on-select="guardarRequisicion(f,sucursal);">
+                                  <ui-select-match placeholder="Buscar">{{$select.selected.nombre}}</ui-select-match>
+                                  <ui-select-choices repeat="item in sucursales | filter: $select.search">
+                                    <div ng-bind-html="item.nombre | highlight: $select.search"></div>
+                                  </ui-select-choices>
+                                </ui-select>
+                        </div>
+                    </form>
+
+	            <!-- Detalle -->
+                    <div class="form-group" ng-show="view">
+                        <a href="" class="btn btn-xs" ng-click="view = !view">
+                            <i class="glyphicon glyphicon-chevron-left"></i>
+                        </a>
+                    </div>
+
+                    <form name="form_detalle" role="form" ng-show="view">
+                        <div class="form-group">
+                            <label class="control-label"> Cantidad:</label>
+                             <input type="number" min="1" step="1" class="form-control text-center" ng-model="detalle.cantidad" placeholder="Cantidad" required/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Producto:</label>
+                                <input type="text" ng-change="buscarProducto(txtproducto);" class="form-control" ng-model="txtproducto" placeholder="Producto" />
+                        </div>
+	                    <div class="form-group">
+	                        <button class="btn btn-primary btn-block" ng-click="guardarDetalle(detalle);" ng-disabled="form_detalle.$invalid">Agregar
+	                        </button>
+	                    </div>
+                    </form>
+			</div>
+        </div>
+    </div>
+
+    <!-- Factura -->
+    <div class="col-sm-7">
+        <div class="box" style="height:400px;">
+            <div class="box-body">
+            
+            <!-- Lista -->
+			<div class="table-responsive lista-productos">
+				<table class="table table-striped ">
+					<thead>
+			            <tr>
+							<td><strong>Opciones</strong></td>
+							<td><strong>Nombre</strong></td>
+							<td class="text-center"><strong>Cantidad</strong></td>
+			            </tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="entidad in detalles">
+							<td>
+								<button class="btn btn-xs" type="button" title="Eliminar" ng-click="eliminar($index)">
+								    <i class="glyphicon glyphicon-trash"></i>
+								</button>
+							</td>
+							<td>{{entidad.producto}}</td>
+							<td class="text-center">{{entidad.cantidad}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+            </div>
+        </div>
+    </div>
+    <!-- Guardar -->
+    <div class="col-sm-12">
+        <div class="box-footer">
+            <button class="btn btn-primary pull-right" ng-click="Ok();">Guardar</button>
+            <a href="" class="btn" ng-click="Cancelar();">Salir</a>
+        </div>
+    </div>
+</div>
+</div>
+

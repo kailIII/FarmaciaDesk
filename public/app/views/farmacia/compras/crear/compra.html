@@ -1,0 +1,58 @@
+<form name="form_compra" class="form-vertical" role="form" >
+<!-- Fecha -->
+	<div class="col-sm-12">
+		<div class="form-group">
+		    <label class="control-label"> Fecha:</label>
+		    <div class="controls">
+		        <input type="text" datetime class="form-control" ng-model="compra.fecha" placeholder="Fecha" />
+		    </div>
+		</div>
+	</div>
+<!-- Proveedor -->
+	<div class="col-sm-12">
+	    <div class="form-group">
+	        <label class="control-label"> Proveedor:</label>
+	        <div class="controls">
+	            <ui-select required ng-model="proveedor" theme="bootstrap"
+	            	on-select="compra.proveedor_id = proveedor.id; compra.proveedor = proveedor.nombre;"
+	            	on-remove="compra.proveedor_id = '' ">
+	              <ui-select-match allow-clear placeholder="Buscar">{{$select.selected.nombre}}</ui-select-match>
+	              <ui-select-choices repeat="item in proveedores | filter: $select.search">
+	                <div ng-bind-html="item.nombre | highlight: $select.search"></div>
+	              </ui-select-choices>
+	            </ui-select>
+				 <input type="hidden" ng-model="compra.proveedor_id" required />
+	        </div>
+	    </div>
+	</div>
+
+<!-- Factura -->
+	<div class="col-sm-6">
+	    <div class="form-group">
+	        <label class="control-label"> Factura:</label>
+	        <div class="controls">
+	            <input type="text" class="form-control" ng-model="compra.factura" placeholder="Factura" required />
+	        </div>
+	    </div>
+	</div>
+
+<!-- Lote -->
+	<div class="col-sm-6">
+	    <div class="form-group">
+	        <label class="control-label"> Lote:</label>
+	        <div class="controls">
+	            <input type="text" class="form-control" ng-model="compra.lote" placeholder="Lote" required />
+	        </div>
+	    </div>
+	</div>
+
+<!-- Vencimiento -->
+	<div class="col-sm-12">
+	    <div class="form-group">
+	        <label class="control-label"> Vencimiento:</label>
+	        <div class="controls">
+	            <input type="date" class="form-control" ng-model="compra.vencimiento" placeholder="vencimiento" required />
+	        </div>
+	    </div>
+	</div>
+</form>
